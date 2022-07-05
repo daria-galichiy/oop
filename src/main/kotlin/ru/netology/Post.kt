@@ -1,5 +1,7 @@
 package ru.netology
 
+import ru.netology.attachments.Attachment
+
 internal data class Post(
     val id: Int,
     val ownerId: Int,
@@ -16,7 +18,10 @@ internal data class Post(
     val reposts: Reposts,
     val views: Views,
     val postType: String,
+    val postSource: PostSource? = null,
+    val geo: Geo? = null,
     val signerId: Int,
+    val copyHistory: CopyHistory? = null,
     val canPin: Boolean,
     val canDelete: Boolean,
     val canEdit: Boolean,
@@ -24,4 +29,11 @@ internal data class Post(
     val markedAsAds: Boolean,
     val isFavorite: Boolean,
     val postponedId: Int
-)
+){
+    var attachments = emptyArray<Attachment>()
+
+    internal fun addAttachment(attachment: Attachment): Attachment {
+        attachments += attachment
+        return attachments.last()
+    }
+}
