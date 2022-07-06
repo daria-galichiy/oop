@@ -2,6 +2,7 @@ package ru.netology
 
 import org.junit.Assert.*
 import org.junit.Test
+import ru.netology.exceptions.PostNotFoundException
 
 class WallServiceTest {
 
@@ -162,5 +163,74 @@ class WallServiceTest {
         )
 
         assertFalse(updateResult)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun create_comment_on_post_unsuccessful() {
+        val service = WallService()
+        val addedPost = service.add(
+            Post(
+                id = 0,
+                ownerId = 465,
+                fromId = 789,
+                createdBy = 1011,
+                date = 1656769296,
+                text = "Test post",
+                replyOwnerId = 1213,
+                replyPostId = 1415,
+                friendsOnly = false,
+                comments = Comments(3, true, true, true, true),
+                copyright = "smth",
+                likes = Likes(25, true, true, true),
+                reposts = Reposts(5, false),
+                views = Views(32),
+                postType = "post",
+                signerId = 1617,
+                canPin = true,
+                canDelete = true,
+                canEdit = true,
+                isPinned = false,
+                markedAsAds = false,
+                isFavorite = false,
+                postponedId = 1819
+            )
+        )
+        val comment = Comment(1, 6555, 1657136958, "Brilliant!")
+        println(service.createComment(3, comment))
+    }
+
+    @Test
+    fun create_comment_on_post_successful() {
+        val service = WallService()
+        val addedPost = service.add(
+            Post(
+                id = 0,
+                ownerId = 465,
+                fromId = 789,
+                createdBy = 1011,
+                date = 1656769296,
+                text = "Test post",
+                replyOwnerId = 1213,
+                replyPostId = 1415,
+                friendsOnly = false,
+                comments = Comments(3, true, true, true, true),
+                copyright = "smth",
+                likes = Likes(25, true, true, true),
+                reposts = Reposts(5, false),
+                views = Views(32),
+                postType = "post",
+                signerId = 1617,
+                canPin = true,
+                canDelete = true,
+                canEdit = true,
+                isPinned = false,
+                markedAsAds = false,
+                isFavorite = false,
+                postponedId = 1819
+            )
+        )
+        val comment = Comment(1, 6555, 1657136958, "Brilliant!")
+        val addedComment = service.createComment(1, comment)
+        assertEquals(1, addedComment.id)
     }
 }

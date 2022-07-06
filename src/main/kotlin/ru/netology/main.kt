@@ -58,4 +58,8 @@ fun main() {
     println(addedPost)
 //    println(WallService.update(updatedPost))
     println(wall.update(updatedPost))
+    wall.showPosts()
+
+    val comment = Comment(1, 6555, 1657136958, "Brilliant!")
+    println(wall.createComment(2, comment))
 }
